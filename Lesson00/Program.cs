@@ -17,8 +17,8 @@ namespace Lesson00
         static void Main(string[] args)
         {
 
-            HowToIterateListImplementingInterface();
 
+            HowToIterateListImplementingInterface();
             HowToIterateWithInterfaceAndDistinguishCustomer();
 
             Console.ReadLine();

@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Lesson01.Models;
 
 namespace Lesson01.Classes
 {
+
     public class Mocked
     {
+
         public static List<Person> People() =>
             new ()
             {

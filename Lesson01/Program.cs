@@ -2,6 +2,7 @@
 using Lesson01.Classes;
 using Lesson01.Interfaces;
 using Lesson01.LanguageExtensions;
+using Lesson01.Models;
 using Spectre.Console;
 
 namespace Lesson01
@@ -10,10 +11,11 @@ namespace Lesson01
     {
         static void Main(string[] args)
         {
-            GetTaxpayersFromHelper();
-            GetPeopleFromHelper();
-            ExampleTwoInterfacesPatternMatching();
-            ExampleTwoInterfacesCasting();
+
+            //GetTaxpayersFromHelper();
+            //GetPeopleFromHelper();
+            //ExampleTwoInterfacesPatternMatching();
+            //ExampleTwoInterfacesCasting();
 
             Console.ReadLine();
         }
@@ -22,6 +24,7 @@ namespace Lesson01
         {
             Console.WriteLine();
             AnsiConsole.MarkupLine($"[dodgerblue2 on white]{nameof(GetTaxpayersFromHelper).SplitCamelCase()}[/]");
+
             foreach (var person in Mocked.Taxpayers())
             {
                 var (id, human) = Helpers.Item(person);

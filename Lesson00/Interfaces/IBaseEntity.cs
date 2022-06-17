@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Lesson00.Interfaces
 {
+
     public interface IBaseEntity
     {
-        public int Id { get;}
+        public int Id { get; }
         public string Name { get; set; }
 
         /// <summary>

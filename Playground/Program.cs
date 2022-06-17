@@ -12,7 +12,8 @@ namespace Playground
     {
         static void Main(string[] args)
         {
-            FormatExample();
+            
+            //FormatExample();
             TimesForUsingObjectType();
 
             Console.ReadLine();
