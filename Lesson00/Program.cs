@@ -37,7 +37,7 @@ namespace Lesson00
                 new Car() { CarId = 1, Name = "Car 1" },
             };
 
-            foreach (var entity in list)
+            foreach (IBaseEntity entity in list)
             {
                 Console.WriteLine($"{entity.Id,-4}{entity.Name}");
             }
@@ -57,7 +57,7 @@ namespace Lesson00
                 new Car() { CarId = 1, Name = "Car 1" },
             };
 
-            foreach (var entity in list)
+            foreach (IBaseEntity entity in list)
             {
                 if (entity is Customer customer)
                 {
