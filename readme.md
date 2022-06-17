@@ -12,3 +12,11 @@ The main benefit is about code readability, code maintainability and code "seman
 - **Code semantics**: By providing interfaces and implementing them you're actively separating concepts in a similar way HTML and CSS does. A class is a concrete implementation of an "object class" some way of representing the reality by modeling general properties of real life objects or concepts. An interface define a behavioral model, a definition of what an object can do. Separating those concepts keeps the semantics of your code more clear.
 - **Code maintainability**: Interfaces helps to reduce coupling and therefore allow you to easily interchange implementations for the same concept without the underlying code being affected. 
 - Implement [Dependency injection](https://en.wikipedia.org/wiki/Dependency_injection)
+
+```csharp
+List<IBaseEntity> list = new()
+{
+    new Customer() { CustomerIdentifier = 1, Name = "SomeCustomer", ContactIdentifier = 2 },
+    new Car() { CarId = 1, Name = "Car 1" },
+};
+```
