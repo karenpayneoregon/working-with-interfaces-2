@@ -20,3 +20,7 @@ List<IBaseEntity> list = new()
     new Car() { CarId = 1, Name = "Car 1" },
 };
 ```
+
+## See also
+
+[More on interfaces](https://github.com/karenpayneoregon/oed-working-with-interfaces)

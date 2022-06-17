@@ -12,10 +12,10 @@ namespace Lesson01
         static void Main(string[] args)
         {
 
-            //GetTaxpayersFromHelper();
-            //GetPeopleFromHelper();
-            //ExampleTwoInterfacesPatternMatching();
-            //ExampleTwoInterfacesCasting();
+            GetTaxpayersFromHelper();
+            GetPeopleFromHelper();
+            ExampleTwoInterfacesPatternMatching();
+            ExampleTwoInterfacesCasting();
 
             Console.ReadLine();
         }
