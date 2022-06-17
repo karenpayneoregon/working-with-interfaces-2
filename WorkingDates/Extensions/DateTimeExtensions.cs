@@ -15,22 +15,17 @@ namespace WorkingDates.Extensions
             return date.AddDays(days);
         }
 
-        public static IReadOnlyList<DateTime> Next(
-            this DateTime from,
-            params DayOfWeek[] days
-        )
+        public static IReadOnlyList<DateTime> Next(this DateTime from, params DayOfWeek[] days)
         {
             return Next(from, DateCalculationKind.And, days);
         }
 
-        public static IReadOnlyList<DateTime> Next(
-            this DateTime from,
-            DateCalculationKind calculationKind,
-            params DayOfWeek[] days
-        )
+        public static IReadOnlyList<DateTime> Next(this DateTime from, DateCalculationKind calculationKind, params DayOfWeek[] days)
         {
             if (days == null)
+            {
                 return new DateTime[0];
+            }
 
             var results = new List<DateTime>();
 
@@ -40,6 +35,7 @@ namespace WorkingDates.Extensions
                 : days;
 
             DateTime? result = null;
+
             foreach (var dayOfWeek in days)
             {
                 result = calculationKind == DateCalculationKind.And || result is null
