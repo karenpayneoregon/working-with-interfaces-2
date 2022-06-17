@@ -4,8 +4,10 @@ Some of this advice is for any language in Microsoft Visual Studio ecosystem.
 
 | Do/Do not        | Tips |
 |:------------- |:------------- |
-| :heavy_check_mark: | Forget about starting with code, start by learn using GitHub in Visual Studio. Well we do need some code but will get to that. |
-| :heavy_check_mark: | Read Microsoft documentation on the anatomy of a Visual Studio solution. Read Microsoft documentation on the anatomy of a Visual Studio solution. Once structuring of projects within a solution are understood this assist with proper coding. |
+| :heavy_check_mark: | Forget about starting with code, start by learn using [GitHub in Visual Studio](https://visualstudio.microsoft.com/vs/github/). Well we do need some code but will get to that. |
+| :heavy_check_mark: | Get to know [Visual Studio Solution Explorer](https://docs.microsoft.com/en-us/visualstudio/ide/use-solution-explorer?view=vs-2022) |
+| :heavy_check_mark: | Visual Studio [Manage project and solution properties](https://docs.microsoft.com/en-us/visualstudio/ide/managing-project-and-solution-properties?view=vs-2022)
+| :heavy_check_mark: | Read Microsoft documentation on the anatomy of a Visual Studio solution. Once structuring of projects within a solution are understood this assist with proper coding. |
 | :heavy_check_mark: | Read documentation on using solution folders in a Visual Studio solution which assist in segmenting various types of project from each other. |
 | :heavy_check_mark: | Forget about starting to code with any project type other than a console project |
 | :heavy_check_mark: | Don't be cheap if serious about learn to work with C#. Sure there are plenty of free courses on the web to learn from. There are downsides to free courses, anyone can post a free course which means they may or may not be correct. Instead get a subscription to Pluralsight. Once you have a Pluralsight subscription use their AI evaluation to assist your current skill and go with recommended courses. |
@@ -22,6 +24,10 @@ Some of this advice is for any language in Microsoft Visual Studio ecosystem.
 | :heavy_check_mark:|For those starting with Windows Forms and moving to XAML based projects, avoid coding as done in Windows Forms as these technologies can support forms based coding yet are not truly designed to work as how you coded in forms projects. Take time to learn XAML from Microsoft documentation along with Pluralsight courses. |
 | :x:| Never change from one project type to another just because, instead do so because it makes sense. |
 | | |
+
+# Let's look at Interfaces
+
+TODO
 
 
 - Basics for using
