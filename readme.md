@@ -98,6 +98,14 @@ public class WorkOperations
 }
 ```
 
+# INotifyPropertyChanged Interface
+
+TODO - BasicReadEntityFrameworkCore
+
+# IEquatable&lt;T>
+
+TODO - IEquatableExample
+
 **Results**
 
 ![Iterate1](ClearPictureOfInterface/assets/iterate1.png)
@@ -106,6 +114,8 @@ public class WorkOperations
 What about working with multiple interfaces in tangent with classes? They are addressed in each of the projects with names starting with `Lesson`.
 
 Still not clear on working with interfaces? Take a look at the project `ClearPictureOnInterfaces` and read it's `readme.md` file.
+
+
 
 # Code reviews
 
@@ -149,3 +159,14 @@ List<IBaseEntity> list = new()
 ## See also
 
 [More on interfaces](https://github.com/karenpayneoregon/oed-working-with-interfaces)
+
+## Commonly used interfaces
+
+- IEnumerable (and IEnumerable): for use with foreach and LINQ
+- IDisposable: for resources requiring cleanup, used with using
+- IQueryable: lets you execute requests against queriable data sources.
+- INotifyPropertyChange : For data binding to UI classes in WPF, winforms
+- IComparable and IComparer: for generalized sorting
+- IEquatable and IEqualityComparer: for generalized equality
+- IList and ICollection: for mutable collections
+- IDictionary: for lookup collections
