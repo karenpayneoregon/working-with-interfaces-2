@@ -40,7 +40,7 @@ interface IHuman
 }
 ```
 
-We have consistency and proper naming standards
+We now have `consistency and` proper `naming standards`.
 
 ```csharp
 class Customer : IHuman
@@ -107,8 +107,17 @@ What about working with multiple interfaces in tangent with classes? They are ad
 
 Still not clear on working with interfaces? Take a look at the project `ClearPictureOnInterfaces` and read it's `readme.md` file.
 
+# Code reviews
+
+To enforce rules there must be code reviews, preferably before allowing changes being pushed to source control. And for even better control have developers write unit test which must not break code done by other developers.
+
+Code reviews should be done frequently, otherwise with a large code review the consequences sometimes can lead to accepting code to stay on track of a timeline.
+
+Most teams I have worked on require peer code reviews and senior dev code reviews then have rules in source control to run all unit test, if one fails reject the commit while all pass allow the commit. 
+
 # Summary
 
+**TODO**
 
 
 
