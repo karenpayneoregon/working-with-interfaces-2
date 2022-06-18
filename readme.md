@@ -1,38 +1,122 @@
-# How to properly learn how to code with C#
+# Using Interfaces
 
-Some of this advice is for any language in Microsoft Visual Studio ecosystem.
+Base example, one developer on a team creates the following model
 
-| Do/Do not        | Tips |
-|:------------- |:------------- |
-| :heavy_check_mark: | Forget about starting with code, start by learn using [GitHub in Visual Studio](https://visualstudio.microsoft.com/vs/github/). Well we do need some code but will get to that. |
-| :heavy_check_mark: | Get to know [Visual Studio Solution Explorer](https://docs.microsoft.com/en-us/visualstudio/ide/use-solution-explorer?view=vs-2022) |
-| :heavy_check_mark: | Visual Studio [Manage project and solution properties](https://docs.microsoft.com/en-us/visualstudio/ide/managing-project-and-solution-properties?view=vs-2022)
-| :heavy_check_mark: | Read Microsoft documentation on the anatomy of a Visual Studio solution. Once structuring of projects within a solution are understood this assist with proper coding. |
-| :heavy_check_mark: | Read documentation on using solution folders in a Visual Studio solution which assist in segmenting various types of project from each other. |
-| :heavy_check_mark: | Forget about starting to code with any project type other than a console project |
-| :heavy_check_mark: | Don't be cheap if serious about learn to work with C#. Sure there are plenty of free courses on the web to learn from. There are downsides to free courses, anyone can post a free course which means they may or may not be correct. Instead get a subscription to Pluralsight. Once you have a Pluralsight subscription use their AI evaluation to assist your current skill and go with recommended courses. |
-|  | Good courses will lead you into learning about proper coding using proper OOP by providing the basics and not go overboard. |
-| :heavy_check_mark: | Learn small parts of coding then take time to experiment. For instance, working with strings, work with case and case insensitive logic statements e.g. does a string contain a word in the same case or perhaps mix-case. DateTime, this topic someone just starting out could spend hours or even days learning about. Take time as it will serve you well down the road. |
-| :x: | Do not think unit testing is not for you. Unit testing can save countless time while initially coding an application along with proving or disproving what caused a runtime bug down the road. |
-| :heavy_check_mark: | Constantly challenge your skills. A good way to do this is at least once a day or once a week traverse questions on Stackoverflow under the C# tag. See if you can answer them by writing out the solution for yourself. If comfortable with sharing your solution make sure it's perfect before posting. |
-| :x: | Do not glance over interfaces, learn about them and why you should consider using interfaces |
-| :x: | Do not create classes that you are calling a constructor on unless there is a good reason, instead try and write code using static methods. |
-| :x: | Do not write SQL statements directly in code, write SQL-Statements for SQL-Server in SSMS (SQL-Server Management Studio), Oracle in Oracle Developer or get a paid version of Toad. |
-| :x: | Do not use string concatenation when writing SQL statements, use parameters. When using parameters always use Add not AddWithValue. |
-| :x: | When writing SQL, if there are performance issues, use SQL-Server profiler in SSMS to figure why there are performance issues. Many times it's a badly written statement or missing indices. |
-| :heavy_check_mark: | When working with Windows forms, avoid writing all your code in the form. First off, writing all code in a form means you can not easily share this code and next, as code base becomes larger it will be difficult to maintain |
-| :heavy_check_mark:|For those starting with Windows Forms and moving to XAML based projects, avoid coding as done in Windows Forms as these technologies can support forms based coding yet are not truly designed to work as how you coded in forms projects. Take time to learn XAML from Microsoft documentation along with Pluralsight courses. |
-| :x:| Never change from one project type to another just because, instead do so because it makes sense. |
-| | |
+```csharp
+class Customer
+{
+    public int CustomerId { get; set; }
+    public string FName { get; set; }
+    public string LName { get; set; }
+    public DateTime DateTime { get; set; }
+}
+```
 
-# Let's look at Interfaces
+Another developer in another project creates the following model
 
-TODO
+```csharp
+class Customer
+{
+    public int CustomerId { get; set; }
+    public string firstName { get; set; }
+    public string lastName { get; set; }
+    public DateTime SomeDateTime { get; set; }
+}
+```
+
+There is no consistency and naming conventions do not follow standards.
+
+By forcing these developers to use an interface e.g.
+
+```csharp
+interface IHuman
+{
+    public int Id { get; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public DateTime BirthDate { get; set; }
+}
+```
+
+We have consistency and proper naming standards
+
+```csharp
+class Customer : IHuman
+{
+    public int CustomerId { get; set; }
+    public int Id => CustomerId;
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public DateTime BirthDate { get; set; }
+}
+```
+
+We can then apply this interface to another model and have consistency and proper naming standards.
+
+```csharp
+class Employee : IHuman
+{
+    public int EmployeeId { get; set; }
+    public int Id => EmployeeId;
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public DateTime BirthDate { get; set; }
+}
+```
+
+Now suppose we have a Customer and Employee, by implementing IHuman we don't need to know the primary key is `CustomerId` or `EmployeeId`.
+
+Let's create a mix list of Customer and Employee
+
+ ```csharp
+public class Mocking
+{
+    public static List<IHuman> List() => new ()
+        {
+            new Customer() { CustomerId = 1, BirthDate = new DateTime(1999, 12, 3), FirstName = "Bill", LastName = "Jones" },
+            new Employee() { EmployeeId = 2, BirthDate = new DateTime(2001, 1, 4), FirstName = "Mary", LastName = "Gallagher" },
+            new Employee() {EmployeeId = 4, BirthDate = new DateTime(1980,9,1), FirstName = "Jim", LastName = "Adams"}
+        };
+}
+```
+
+When traversing the list we ask for `Id` not the actual key as `Id` points to the actual key and we have no reason to alter the key.
+
+```csharp
+public class WorkOperations
+{
+    public static void IterateHumans()
+    {
+        var humans = Mocking.List();
+        foreach (var human in humans)
+        {
+            Console.WriteLine($"{human.GetType().Name,-12} {human.Id,-3}{human.FirstName,-12}{human.LastName,-12}{human.BirthDate:d}");
+        }
+    }
+}
+```
+
+**Results**
+
+![Iterate1](ClearPictureOfInterface/assets/iterate1.png)
 
 
-- Basics for using
+What about working with multiple interfaces in tangent with classes? They are addressed in each of the projects with names starting with `Lesson`.
+
+Still not clear on working with interfaces? Take a look at the project `ClearPictureOnInterfaces` and read it's `readme.md` file.
+
+# Summary
+
+
+
+
+# Definitions
+
+- *Definitions* (usually at the top of an article but done later on purpose)
+ 
   - [Interfaces](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/interface): An interface defines a contract. Any class or struct that implements that contract must provide an implementation of the members defined in the interface. *A lead developer writes interfaces for code logic and provides them to other developers to use.*
-  - [Abstract](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/abstract) classes: Use the abstract modifier in a class declaration to indicate that a class is intended only to be a `base class` of other classes, not instantiated on its own. Members marked as abstract must be implemented by non-abstract classes that derive from the abstract class.
+  - An `interface` contains definitions for a group of related functionalities that a non-abstract class or a struct must implement. An interface may define static methods, which must have an implementation. Beginning with C# 8.0, an interface may define a default implementation for members. An interface may not declare instance data such as fields, auto-implemented properties, or property-like events. ([Microsoft docs](https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/types/interfaces))
+  - [Abstract](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/abstract) classes: Use the abstract modifier in a class declaration to indicate that a class is intended only to be a `base class` of other classes, not instantiated on its own. Members marked as abstract must be implemented by non-abstract classes that derive from the abstract class. *We wil use an abstract class for special usage in place of an interface in a provided code sample.*
 
 ## Interface benefits
 
