@@ -2,11 +2,11 @@
 
 When someone sets out to learn programming, in this case with C# more times than not they think procedurally, not object oriented. This means writing their code in one class, form or window and as a project grows several things happen. First, code becomes unmanageable simply because all the code resides in one location, a form, and window and even in some case a web page (even though there are templates). Secondly they will have different names for object method and property names which makes maintaining code difficult.
 
-Then the next level is well my code is unmanageable so it’s time to use classes but never consider using interfaces as for many it is a foreign idea and never take time to learn about using interfaces.
+Then the next level is well my code is unmanageable so it's time to use classes but never consider using interfaces as for many it is a foreign idea and never take time to learn about using interfaces.
 
-*So what do interfaces give us?*
+## So what do interfaces give us?
 
-## Code readability
+### Code readability
 
 When interface names are well thought out they describe intent. 
 
@@ -37,7 +37,7 @@ public class Burger : MenuItem, IFood
 }
 ```
 
-While for soda/pop, no cooking
+While for soda/pop requires no cooking
 
 ```csharp
 public class Soda : MenuItem
@@ -60,11 +60,7 @@ public abstract class MenuItem
 ```
 
 
-## Code maintainability and consistency
-
-
-
-
+### Code maintainability and consistency
 
 
 Base example, one developer on a team creates the following model
@@ -163,11 +159,128 @@ public class WorkOperations
 }
 ```
 
-# INotifyPropertyChanged Interface
+</br>
 
-TODO - BasicReadEntityFrameworkCore
+Suppose a project has several models where each one requires get, get all, update, add, delete and save
 
-# IEquatable&lt;T>
+If you have no rules and two developers not talking to each other, each will more likely than not have their own method names and one or both may not have implemented all methods.
+
+For consistency a rule is to implement the following interface for, in this case ManagerOperations class.
+
+```csharp
+public interface IModelEntity<T>
+{
+    T GetById(int id);
+    T Update(T model);
+    T Add(T model);
+    T Delete(int id);
+    int Commit();
+    Task<int> CommitAsync();
+    List<T> GetAll();
+}
+```
+Finished, ready for coding methods.
+
+```csharp
+public class Manager : IHuman
+{
+    public int ManagerIdentifier { get; set; }
+    public int Id => ManagerIdentifier;
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public DateTime BirthDate { get; set; }
+
+}
+
+public class ManagerOperations : IModelEntity<Manager>
+{
+    public Manager GetById(int id)
+    {
+        throw new NotImplementedException();
+    }
+    public Manager Update(Manager model)
+    {
+        throw new NotImplementedException();
+    }
+    public Manager Add(Manager model)
+    {
+        throw new NotImplementedException();
+    }
+    public Manager Delete(int id)
+    {
+        throw new NotImplementedException();
+    }
+    public int Commit()
+    {
+        throw new NotImplementedException();
+    }
+    public Task<int> CommitAsync()
+    {
+        throw new NotImplementedException();
+    }
+    public List<Manager> GetAll()
+    {
+        throw new NotImplementedException();
+    }
+}
+```
+
+Now we have another model, Taxpayer, implmentation is the same as Manager.
+
+```csharp
+public class Taxpayer : IHuman
+{
+    public int TaxpayerIdentifier { get; set; }
+    public int Id => TaxpayerIdentifier;
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public DateTime BirthDate { get; set; }
+}
+
+public class TaxpayerOperations : IModelEntity<Taxpayer>
+{
+    public Taxpayer GetById(int id)
+    {
+        throw new NotImplementedException();
+    }
+    public Taxpayer Update(Taxpayer model)
+    {
+        throw new NotImplementedException();
+    }
+    public Taxpayer Add(Taxpayer model)
+    {
+        throw new NotImplementedException();
+    }
+    public Taxpayer Delete(int id)
+    {
+        throw new NotImplementedException();
+    }
+    public int Commit()
+    {
+        throw new NotImplementedException();
+    }
+    public Task<int> CommitAsync()
+    {
+        throw new NotImplementedException();
+    }
+    public List<Taxpayer> GetAll()
+    {
+        throw new NotImplementedException();
+    }
+}
+```
+
+Follow the above or similar for maintainability and consistency in your projects.
+
+
+
+
+
+### INotifyPropertyChanged Interface
+
+TODO - INotifyPropertyChangedExample
+
+### IEquatable&lt;T>
 
 TODO - IEquatableExample
 
@@ -182,17 +295,13 @@ Still not clear on working with interfaces? Take a look at the project `ClearPic
 
 
 
-# Code reviews
+## Code reviews
 
 To enforce rules there must be code reviews, preferably before allowing changes being pushed to source control. And for even better control have developers write unit test which must not break code done by other developers.
 
 Code reviews should be done frequently, otherwise with a large code review the consequences sometimes can lead to accepting code to stay on track of a timeline.
 
 Most teams I have worked on require peer code reviews and senior dev code reviews then have rules in source control to run all unit test, if one fails reject the commit while all pass allow the commit. 
-
-# Interfaces – what is the point?
-
-**TODO**
 
 
 
