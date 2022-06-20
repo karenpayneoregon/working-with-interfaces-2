@@ -1,6 +1,71 @@
 # Using Interfaces
 
-**TODO Write intro and Summary**
+When someone sets out to learn programming, in this case with C# more times than not they think procedurally, not object oriented. This means writing their code in one class, form or window and as a project grows several things happen. First, code becomes unmanageable simply because all the code resides in one location, a form, and window and even in some case a web page (even though there are templates). Secondly they will have different names for object method and property names which makes maintaining code difficult.
+
+Then the next level is well my code is unmanageable so it’s time to use classes but never consider using interfaces as for many it is a foreign idea and never take time to learn about using interfaces.
+
+*So what do interfaces give us?*
+
+## Code readability
+
+When interface names are well thought out they describe intent. 
+
+Example, we are part of a restaurant and have many items that requiring cooking
+
+We can have an interface which has a method to cook.
+
+```csharp
+public interface IFood
+{
+    void Cook();
+}
+```
+
+We implement `IFood` on
+
+```csharp
+public class Burger : MenuItem, IFood
+{
+    public override void BringToTable()
+    {
+        Console.WriteLine($"\t{nameof(Burger)}");
+    }
+    public void Cook()
+    {
+        Console.WriteLine($"\t{nameof(Burger)}");
+    }
+}
+```
+
+While for soda/pop, no cooking
+
+```csharp
+public class Soda : MenuItem
+{
+    public override void BringToTable()
+    {
+        Console.WriteLine($"\t{nameof(Soda)}");
+    }
+}
+```
+
+What is `MenuItem` ? This class defines any item on a restaurant menu excluding other properties like size and price for instance for clarity for using an interface.
+
+```csharp
+public abstract class MenuItem
+{
+    public string Name { get; set; }
+    public abstract void BringToTable();
+}
+```
+
+
+## Code maintainability and consistency
+
+
+
+
+
 
 Base example, one developer on a team creates the following model
 
@@ -125,7 +190,7 @@ Code reviews should be done frequently, otherwise with a large code review the c
 
 Most teams I have worked on require peer code reviews and senior dev code reviews then have rules in source control to run all unit test, if one fails reject the commit while all pass allow the commit. 
 
-# Summary
+# Interfaces – what is the point?
 
 **TODO**
 
@@ -164,6 +229,7 @@ List<IBaseEntity> list = new()
 
 - IEnumerable (and IEnumerable): for use with foreach and LINQ
 - IDisposable: for resources requiring cleanup, used with using
+- ICloneable: allows creating objects of a class having same values as another instance using the Clone method.
 - IQueryable: lets you execute requests against queriable data sources.
 - INotifyPropertyChange : For data binding to UI classes in WPF, winforms
 - IComparable and IComparer: for generalized sorting

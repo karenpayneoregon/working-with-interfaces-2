@@ -7,8 +7,19 @@ namespace ForWriteUps
     {
         static void Main(string[] args)
         {
-            WorkOperations.IterateHumans();
+            //WorkOperations.CloneWithDeepCloner();
+            //AgeOfPerson();
+
+
             Console.ReadLine();
         }
+
+        static void AgeOfPerson()
+        {
+            DateTime dateOfBirth = new(1956, 9, 24);
+            Console.WriteLine(dateOfBirth.GetAge());
+        }
     }
+
+
 }
