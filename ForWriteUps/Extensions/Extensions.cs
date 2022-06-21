@@ -30,6 +30,9 @@ namespace ForWriteUps.Extensions
         }
 
         public static string RemoveSystem(this string sender) => sender.Replace("System.", "");
+
+
+
     }
 }
 

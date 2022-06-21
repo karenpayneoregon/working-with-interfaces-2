@@ -2,6 +2,8 @@
 
 When someone sets out to learn programming, in this case with C# more times than not they think procedurally, not object oriented. This means writing their code in one class, form or window and as a project grows several things happen. First, code becomes unmanageable simply because all the code resides in one location, a form, and window and even in some case a web page (even though there are templates). Secondly they will have different names for object method and property names which makes maintaining code difficult.
 
+*I've intentionally kept code samples simple for easy of learning. Once you have the basics down work on learning dependency injection.*
+
 Then the next level is well my code is unmanageable so it's time to use classes but never consider using interfaces as for many it is a foreign idea and never take time to learn about using interfaces.
 
 ## So what do interfaces give us?
@@ -274,15 +276,18 @@ Follow the above or similar for maintainability and consistency in your projects
 
 
 
-
-
 ### INotifyPropertyChanged Interface
 
-TODO - INotifyPropertyChangedExample
+The interface is used to communicate to view that some properties in view model have changed. 
+
+
+- See project INotifyPropertyChangedExample
+  - SqlOperationsEntityFrameworkCore.Projections.`Products` implement this interface
+ 
 
 ### IEquatable&lt;T>
 
-TODO - IEquatableExample
+- See project IEquatableExample which implements this interface for equality between two instances of a Person class, on string properties case insensitive.
 
 **Results**
 
@@ -294,6 +299,122 @@ What about working with multiple interfaces in tangent with classes? They are ad
 Still not clear on working with interfaces? Take a look at the project `ClearPictureOnInterfaces` and read it's `readme.md` file.
 
 
+### IFormatProvider
+
+The IFormatProvider interface supplies an object that provides formatting information for formatting and parsing operations. Formatting operations convert the value of a type to the string representation of that value. Typical formatting methods are the ToString methods of a type, as well as Format.
+
+- See project IFormatProviderExample which demonstrates formatting literal strings for a SQL INSERT statement propery by data type. Note this does not circument using parameters when using a command object.
+
+The .NET Framework includes the following three predefined IFormatProvider implementations to provide culture-specific information that is used in formatting or parsing numeric and date and time values:
+
+1. The `NumberFormatInfo` class, which provides information that is used to format numbers, such as the currency, thousands separator, and decimal separator symbols for a particular culture. For information about the predefined format strings recognized by a NumberFormatInfo object and used in numeric formatting operations, see Standard Numeric Format Strings and Custom Numeric Format Strings.
+2. The `DateTimeFormatInfo` class, which provides information that is used to format dates and times, such as the date and time separator symbols for a particular culture or the order and format of a date's year, month, and day components. For information about the predefined format strings recognized by a DateTimeFormatInfo object and used in numeric formatting operations, see Standard Date and Time Format Strings and Custom Date and Time Format Strings.
+3. The `CultureInfo` class, which represents a particular culture. Its GetFormat method returns a culture-specific NumberFormatInfo or DateTimeFormatInfo object, depending on whether the CultureInfo object is used in a formatting or parsing operation that involves numbers or dates and times.
+
+## Dependency Injection
+
+In short, interfaces are used often for registering servicecs of an application. I recommend reading the [following page](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-6.0).
+
+For ASP.NET Core configuration is done in Startup.cs similar to the following.
+
+**Note** the connection string initialization has been left out for clarity of other code, see the [following](https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-strings) for more on connecting to databases in ASP.NET Core.
+
+```csharp
+public class Startup
+{
+    public Startup(IConfiguration configuration)
+    {
+        Configuration = configuration;
+    }
+
+    public IConfiguration Configuration { get; }
+
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddControllers();
+
+        var connString = ""; // get from config
+        services.AddDbContext<ImmutableCacheDbContext>(options => options.UseSqlServer(connString));
+        services.AddMemoryCache();
+        services.AddScoped<ILotNamesCache, LotNamesCache>();
+    }
+
+    public void Configure(IApplicationBuilder app, IHostEnvironment env)
+    {
+        if (env.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+        }
+
+        app.UseRouting();
+
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllers();
+        });
+    }
+}
+```
+
+Besides services even working with obtaining information from appsettings.json uses an interface.
+
+```csharp
+private static IConfigurationRoot Builder()
+{
+    var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");
+    var configuration = builder.Build();
+    return configuration;
+}
+```
+
+## IReadOnlyList
+
+Represents a read-only collection of elements that can be accessed by index.
+
+Example, present a list of options in a dropdown where there is a rule to not allow alteration of the list.
+
+Here a list is created from a database table with permissions set to prohibit altering current values along with providing the first item to force the user to make a selection which in a real application may not be needed.
+
+```csharp
+
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Data.SqlClient;
+using DataLibrary.Models;
+
+namespace DataLibrary.Classes
+{
+    public class SqlServerOperations
+    {
+        protected static string ConnectionString = "Server=.\\SQLEXPRESS;Database=NorthWind2020;Integrated Security=true";
+        public static IReadOnlyList<CountryItem> CountriesReadOnly()
+        {
+            List<CountryItem> list = new() { new CountryItem(-1, "Select") };
+
+            using var cn = new SqlConnection(ConnectionString);
+            using var cmd = new SqlCommand { Connection = cn, CommandText = "SELECT CountryIdentifier, [Name] FROM dbo.Countries;" };
+            cn.Open();
+            var reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                list.Add(new CountryItem(reader.GetInt32(0), reader.GetString(1)) );
+            }
+
+            return list.ToImmutableList();
+        }
+    }
+}
+
+```
+
+:green_circle: Source code for above is not in this solution but is located [here](https://github.com/karenpayneoregon/basic-immutability-csharp/blob/master/DataLibrary/Classes/SqlServerOperations.cs).
+
+
+
+#### See also
+
+[.NET Generic Host in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-6.0)
 
 ## Code reviews
 
