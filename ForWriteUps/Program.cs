@@ -9,7 +9,7 @@ namespace ForWriteUps
         {
             //WorkOperations.CloneWithDeepCloner();
             //AgeOfPerson();
-
+            WorkOperations.ComparerBuilderExample();
 
             Console.ReadLine();
         }

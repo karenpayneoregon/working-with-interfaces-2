@@ -384,6 +384,10 @@ private static IConfigurationRoot Builder()
 }
 ```
 
+#### See also
+
+[.NET Generic Host in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-6.0)
+
 ## IReadOnlyList
 
 Represents a read-only collection of elements that can be accessed by index.
@@ -428,10 +432,69 @@ namespace DataLibrary.Classes
 :green_circle: Source code for above is not in this solution but is located [here](https://github.com/karenpayneoregon/basic-immutability-csharp/blob/master/DataLibrary/Classes/SqlServerOperations.cs).
 
 
+## IComparable
 
-#### See also
+Defines a generalized type-specific comparison method that a value type or class implements to order or sort its instances.
 
-[.NET Generic Host in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-6.0)
+A good example is to get items between two elements using a generic language extension
+
+```csharp
+public static class GenericExtensions
+{
+
+	public static bool Between<T>(this T value, T lowerValue, T upperValue) 
+		where T : struct, IComparable<T> 
+		=> Comparer<T>.Default.Compare(value, lowerValue) >= 0 && 
+		   Comparer<T>.Default.Compare(value, upperValue) <= 0;
+}
+```
+
+Example using an `int` (source in project IComparableExample)
+
+```csharp
+int age = 29;
+
+Console.WriteLine($"\t{age,-3} is over 30 {age.Between(30, 30).ToYesNo()}");
+
+age = 30;
+Console.WriteLine($"\t{age,-3} is over 30 {age.Between(30, 30).ToYesNo()}");
+
+age = 30;
+Console.WriteLine($"\t{age,-3} is between 19 and 30 {age.Between(19, 30).ToYesNo()}");
+
+age = 12;
+Console.WriteLine($"\tis child {age.IsChild().ToYesNo()}");
+```
+
+Same extension with DateTime
+
+```csharp
+Console.WriteLine("Working with DateTime");
+    DateTime lowDateTime = new(2022, 1, 1);
+    DateTime someDateTime = new(2022, 1, 2);
+    DateTime highDateTime = new(2022, 1, 8);
+
+    Console.WriteLine($"\t{someDateTime:d} between {lowDateTime:d} and {highDateTime:d}? {someDateTime.Between(lowDateTime, highDateTime).ToYesNo()}");
+
+    someDateTime = new DateTime(2022, 2, 2);
+    Console.WriteLine($"\t{someDateTime:d} between {lowDateTime:d} and {highDateTime:d}? {someDateTime.Between(lowDateTime, highDateTime).ToYesNo()}");
+```
+
+</br>
+
+![Screen Shot](IComparableExample/assets/screenShot.png)
+
+We can also do  `IsGreaterThan` and `IsLessThan` with `IComparable`
+
+```csharp
+public static bool IsGreaterThan<T>(this T sender, T value) where T : IComparable
+    => sender.CompareTo(value) > 0;
+
+public static bool IsLessThan<T>(this T sender, T value) where T : IComparable 
+    => sender.CompareTo(value) < 0;
+```
+
+</br>
 
 ## Code reviews
 

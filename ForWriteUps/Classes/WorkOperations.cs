@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using ForWriteUps.Extensions;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using Force.DeepCloner;
+using ForWriteUps.Interfaces;
 using ForWriteUps.Models;
 
 namespace ForWriteUps.Classes
@@ -19,6 +21,18 @@ namespace ForWriteUps.Classes
             }
         }
 
+        public static void ComparerBuilderExample()
+        {
+            var builder = new ComparerBuilder<IHuman>();
+            var comparer = builder
+                .SortKey(human => human.LastName)
+                .ThenKeyDescending(human => human.BirthDate)
+                .Build();
+
+            var list = Mocking.List();
+            list.Sort(comparer);
+            
+        }
         public static void NotNullExample()
         {
             List<int?> list = new () { 1, null, 3, 4, 5 };
