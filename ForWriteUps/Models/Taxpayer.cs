@@ -1,6 +1,7 @@
 ﻿using System;
+using ForWriteUps.Interfaces;
 
-namespace ForWriteUps.Interfaces
+namespace ForWriteUps.Models
 {
     public class Taxpayer : IHuman
     {

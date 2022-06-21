@@ -3,6 +3,10 @@ using System.Threading.Tasks;
 
 namespace ForWriteUps.Interfaces
 {
+    /// <summary>
+    /// Use this interface in a class which performs operations for a specific model
+    /// </summary>
+    /// <typeparam name="T">model</typeparam>
     public interface IModelEntity<T>
     {
         T GetById(int id);

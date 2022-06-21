@@ -9,16 +9,12 @@ namespace ForWriteUps
         {
             //WorkOperations.CloneWithDeepCloner();
             //AgeOfPerson();
-            WorkOperations.ComparerBuilderExample();
+            //WorkOperations.ComparerBuilderExample();
 
             Console.ReadLine();
         }
 
-        static void AgeOfPerson()
-        {
-            DateTime dateOfBirth = new(1956, 9, 24);
-            Console.WriteLine(dateOfBirth.GetAge());
-        }
+
     }
 
 

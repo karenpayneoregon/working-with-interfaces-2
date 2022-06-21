@@ -2,6 +2,9 @@
 
 namespace ForWriteUps.Classes
 {
+    /// <summary>
+    /// Has nothing to do with interfaces
+    /// </summary>
     static class TryOut
     {
         static void AgeOfPerson()

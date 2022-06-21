@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ForWriteUps.Interfaces;
+using ForWriteUps.Models;
 
-namespace ForWriteUps.Interfaces
+namespace ForWriteUps.Classes
 {
     public class TaxpayerOperations : IModelEntity<Taxpayer>
     {

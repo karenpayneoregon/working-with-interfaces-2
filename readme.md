@@ -538,7 +538,7 @@ List<IBaseEntity> list = new()
 ## Commonly used interfaces
 
 - IEnumerable (and IEnumerable): for use with foreach and LINQ
-- IDisposable: for resources requiring cleanup, used with using
+- IDisposable: for resources requiring cleanup, used with using (see [the following post](https://stackoverflow.com/questions/538060/proper-use-of-the-idisposable-interface))
 - ICloneable: allows creating objects of a class having same values as another instance using the Clone method.
 - IQueryable: lets you execute requests against queriable data sources.
 - INotifyPropertyChange : For data binding to UI classes in WPF, winforms
