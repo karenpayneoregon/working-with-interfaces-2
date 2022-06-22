@@ -1,5 +1,7 @@
 # Using Interfaces
 
+![Title](assets/title.png)
+
 When someone sets out to learn programming, in this case with C# more times than not they think procedurally, not object oriented. This means writing their code in one class, form or window and as a project grows several things happen. First, code becomes unmanageable simply because all the code resides in one location, a form, and window and even in some case a web page (even though there are templates). Secondly they will have different names for object method and property names which makes maintaining code difficult.
 
 *I've intentionally kept most of the code samples simple for easy of learning. Once you have the basics down work on learning dependency injection.*

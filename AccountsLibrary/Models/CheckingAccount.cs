@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using AccountsLibrary.Classes;
 using AccountsLibrary.Classes.Events;
@@ -10,12 +12,25 @@ using AO = AccountsLibrary.Classes.AccountOperations;
 
 namespace AccountsLibrary.Models
 {
-    public class CheckingAccount : ICloneable, IBaseAccount
+    public class CheckingAccount : ICloneable, IBaseAccount, INotifyPropertyChanged
     {
+        #region fields
+
         private decimal _warningLevel;
+        private bool _insufficientFunds;
+        private decimal _balance;
+        private string _pin;
+        private string _firstName;
+        private string _lastName;
+
+        #endregion
+
+        #region events
 
         public event BalanceWarningDelegate BalanceWarning;
         public event DenyDelegate AccountDenial;
+
+        #endregion
 
         /// <summary>
         /// Primary key
@@ -27,10 +42,37 @@ namespace AccountsLibrary.Models
         public string Number { get; set; }
 
         public string UserName { get; set; }
-        public string PIN { get; set; }
 
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string PIN
+        {
+            get => _pin;
+            set
+            {
+                _pin = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string FirstName
+        {
+            get => _firstName;
+            set
+            {
+                _firstName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string LastName
+        {
+            get => _lastName;
+            set
+            {
+                _lastName = value;
+                OnPropertyChanged();
+            }
+        }
+
         public List<Transaction> Transactions { get; set; } = new();
 
         public CheckingAccount()
@@ -138,8 +180,7 @@ namespace AccountsLibrary.Models
 
         }
 
-        private bool _insufficientFunds;
-        private decimal _balance;
+
         public bool InsufficientFunds => _insufficientFunds;
 
         public override string ToString() => $"{AccountId,-4}{Balance:C}";
@@ -156,5 +197,12 @@ namespace AccountsLibrary.Models
             // get
             return JsonSerializer.Deserialize<CheckingAccount>(json)!;
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
     }
 }

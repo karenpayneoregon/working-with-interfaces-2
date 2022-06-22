@@ -57,6 +57,7 @@ namespace AccountsLibraryUnitTestProject
             var account = AO.GetAccount(accountId);
             
             // assert
+            Console.WriteLine(account.Balance);
             Check.That(account.Balance).Equals(balance);
         }
 
