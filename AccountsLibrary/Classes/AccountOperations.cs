@@ -72,7 +72,7 @@ namespace AccountsLibrary.Classes
         /// </remarks>
         public static void Update(CheckingAccount account)
         {
-            IList<CheckingAccount> list = ReadAccountsFromFile().Clone();
+            IList<CheckingAccount> list = new List<CheckingAccount>(ReadAccountsFromFile());
             
             var current = list.FirstOrDefault(x => x.AccountId == account.AccountId);
 

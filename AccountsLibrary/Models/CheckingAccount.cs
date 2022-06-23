@@ -12,7 +12,7 @@ using AO = AccountsLibrary.Classes.AccountOperations;
 
 namespace AccountsLibrary.Models
 {
-    public class CheckingAccount : ICloneable, IBaseAccount, INotifyPropertyChanged
+    public class CheckingAccount : IBaseAccount, INotifyPropertyChanged
     {
         #region fields
 
@@ -73,10 +73,11 @@ namespace AccountsLibrary.Models
             }
         }
 
-        public List<Transaction> Transactions { get; set; } = new();
+        public List<Transaction> Transactions { get; set; } 
 
         public CheckingAccount()
         {
+            Transactions = new List<Transaction>();
             _warningLevel = 10M;
         }
 
@@ -85,6 +86,7 @@ namespace AccountsLibrary.Models
         /// </summary>
         public CheckingAccount(decimal warningLevel)
         {
+            Transactions = new List<Transaction>();
             _warningLevel = warningLevel;
             _insufficientFunds = Balance <= 0M;
         }
@@ -142,7 +144,7 @@ namespace AccountsLibrary.Models
                 _insufficientFunds = false;
             }
 
-            IList<CheckingAccount> list = AO.ReadAccountsFromFile().Clone();
+            IList<CheckingAccount> list = new List<CheckingAccount>(AO.ReadAccountsFromFile());
 
             var current = list.FirstOrDefault(x => x.AccountId == transaction.AccountId);
             current.Transactions.Add(transaction);
@@ -185,18 +187,7 @@ namespace AccountsLibrary.Models
 
         public override string ToString() => $"{AccountId,-4}{Balance:C}";
 
-        /// <summary>
-        /// Normally not needed but here it's needed for methods in AccountOperations. If this had
-        /// data stored in a database no need for this method
-        /// </summary>
-        /// <returns></returns>
-        public object Clone()
-        {
-            // setup
-            var json = JsonSerializer.Serialize(this);
-            // get
-            return JsonSerializer.Deserialize<CheckingAccount>(json)!;
-        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

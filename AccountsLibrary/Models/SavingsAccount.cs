@@ -23,6 +23,8 @@ namespace AccountsLibrary.Models
         public List<Transaction> Transactions { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string PIN { get; set; }
+        public string UserName { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
