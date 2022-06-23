@@ -118,4 +118,93 @@ class Employee : IHuman
 
 The above classes are better known as models which are containers which represent something e.g. a person and employee.
 
+**Implementing Actions**
 
+`Action` Encapsulates a method that has a single parameter and does not return a value.
+
+```csharp
+interface IHuman
+{
+    public int Id { get; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public DateTime BirthDate { get; set; }
+    public void Walk();
+    public string Talk();
+    Action<string> Action { get; set; }
+}
+```
+
+**Example** (yes I pick a really good name for Action)
+
+```csharp
+class Person : IHuman
+{
+    public int PersonIdentifier { get; set; }
+    public int Id => PersonIdentifier;
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public DateTime BirthDate { get; set; }
+
+    public void Walk()
+    {
+        Console.WriteLine($"{FirstName} walking");
+    }
+
+    public string Talk() => $"{FirstName} talking";
+
+    public Action<string> Action { get; set; }
+
+}
+```
+
+Let's invoke the Action
+
+```csharp
+public static void Action()
+{
+    Person person = Person();
+    person.FirstName = "Bob";
+    person.Action = Console.WriteLine;
+    person.Action($"{person.FirstName}, time of day is {DateTime.Now:t}");
+}
+```
+In the above, Console.WriteLine is a `method group`.
+
+**Method Group**: It is a compiler term for "I know what the method name is, but I don't know the signature"; it has no existence at runtime, where it is converted in the correct overload.
+
+Below both `ForEach` display each name in a Console app
+
+```csharp
+private static void ConvertToMethodGroup()
+{
+    List<string> names = new List<string>() {"Karen", "Bick", "James", "Garen", "Lindon"};
+
+    names.ForEach(name => Console.WriteLine(name));
+    names.ForEach(Console.WriteLine);
+
+}
+```
+
+For those old enough, here is something relatable
+
+```csharp
+private static void ConvertToMethodGroup()
+{
+    List<string> firstNames = new() { "Jed", "Granny", "Elly-May" };
+
+    firstNames.ForEach(name => Console.WriteLine(name));
+    firstNames.ForEach(Console.WriteLine);
+
+    List<Person> hillbillies = new()
+    {
+        new() {FirstName = "Jed", LastName = "Clampett"},
+        new() {FirstName = "Elly-May", LastName = "Clampett"},
+        new() {FirstName = "Granny", LastName = "Clampett"},
+    };
+
+    hillbillies.ForEach(Process.Hillbilly);
+    hillbillies.ForEach(person => Process.Hillbilly(person));
+
+}
+```

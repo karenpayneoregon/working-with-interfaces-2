@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,10 +16,10 @@ namespace ForWriteUps.Teaching
         public DateTime BirthDate { get; set; }
         public void Walk();
         public string Talk();
-        Action<string> YourAction { get; set; }
+        Action<string> Action { get; set; }
     }
 
-    class Person : IHuman
+    public class Person : IHuman
     {
         public int PersonIdentifier { get; set; }
         public int Id => PersonIdentifier;
@@ -33,12 +34,40 @@ namespace ForWriteUps.Teaching
 
         public string Talk() => $"{FirstName} talking";
 
-        public Action<string> YourAction { get; set; }
+        public Action<string> Action { get; set; }
 
     }
 
+    public static class Process
+    {
+        public static void Hillbilly(Person sender)
+        {
+            // Do something
+        }
+    }
     public class PersonOperations
     {
+
+        [SuppressMessage("ReSharper", "All")]
+        private static void ConvertToMethodGroup()
+        {
+            List<string> firstNames = new() { "Jed", "Granny", "Elly-May" };
+ 
+            firstNames.ForEach(name => Console.WriteLine(name));
+            firstNames.ForEach(Console.WriteLine);
+
+            List<Person> hillbillies = new()
+            {
+                new() {FirstName = "Jed", LastName = "Clampett"},
+                new() {FirstName = "Elly-May", LastName = "Clampett"},
+                new() {FirstName = "Granny", LastName = "Clampett"},
+            };
+
+            hillbillies.ForEach(Process.Hillbilly);
+            hillbillies.ForEach(person => Process.Hillbilly(person));
+
+        }
+
         private static Person Person() => new()
         {
             PersonIdentifier = 10,
@@ -73,9 +102,8 @@ namespace ForWriteUps.Teaching
         {
             Person person = Person();
             person.FirstName = "Bob";
-            person.YourAction = Console.WriteLine;
-
-            person.YourAction($"{person.FirstName}, time of day is {DateTime.Now:t}");
+            person.Action = Console.WriteLine;
+            person.Action($"{person.FirstName}, time of day is {DateTime.Now:t}");
         }
     }
 
@@ -95,7 +123,7 @@ namespace ForWriteUps.Teaching
 
         public string Talk() => "Manager talking";
 
-        public Action<string> YourAction { get; set; }
+        public Action<string> Action { get; set; }
 
     }
 }
