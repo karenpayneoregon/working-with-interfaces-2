@@ -41,6 +41,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IComparableExample", "IComparableExample\IComparableExample.csproj", "{E5B1312D-8DE2-4F9E-BD28-3574DB359884}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Accounts", "Accounts", "{1704ED52-85B5-4B9F-8074-9677B83D271D}"
+	ProjectSection(SolutionItems) = preProject
+		Accounts.md = Accounts.md
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountsLibrary", "AccountsLibrary\AccountsLibrary.csproj", "{BA582B50-91C6-488A-9270-9059A22A6787}"
 EndProject
