@@ -49,6 +49,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountsLibrary", "Accounts
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountsLibraryUnitTestProject", "AccountsLibraryUnitTestProject\AccountsLibraryUnitTestProject.csproj", "{3838FDB2-DD72-4818-969E-3486CB052F44}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OffTheReservationConsoleApp", "OffTheReservationConsoleApp\OffTheReservationConsoleApp.csproj", "{97474C0A-DD2B-4D74-AE50-1EA512F77954}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +109,10 @@ Global
 		{3838FDB2-DD72-4818-969E-3486CB052F44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3838FDB2-DD72-4818-969E-3486CB052F44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3838FDB2-DD72-4818-969E-3486CB052F44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97474C0A-DD2B-4D74-AE50-1EA512F77954}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97474C0A-DD2B-4D74-AE50-1EA512F77954}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97474C0A-DD2B-4D74-AE50-1EA512F77954}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97474C0A-DD2B-4D74-AE50-1EA512F77954}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -127,6 +133,7 @@ Global
 		{1704ED52-85B5-4B9F-8074-9677B83D271D} = {C64045F5-5AB1-410D-B0D5-47F8E93FB7BE}
 		{BA582B50-91C6-488A-9270-9059A22A6787} = {1704ED52-85B5-4B9F-8074-9677B83D271D}
 		{3838FDB2-DD72-4818-969E-3486CB052F44} = {1704ED52-85B5-4B9F-8074-9677B83D271D}
+		{97474C0A-DD2B-4D74-AE50-1EA512F77954} = {0A554752-0684-4F08-89CB-1FB566784593}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D47FFAB0-4F1A-46B3-B4CE-398E7FD0442E}
