@@ -35,7 +35,7 @@ namespace ForWriteUps.Classes
 
             var list = Mocking.List();
             list.Sort(comparer);
-            
+            // inspect with breakpoint
         }
 
         /// <summary>

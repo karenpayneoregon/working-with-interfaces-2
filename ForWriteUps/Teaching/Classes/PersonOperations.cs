@@ -1,55 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ForWriteUps.Teaching.Models;
 
-namespace ForWriteUps.Teaching
+namespace ForWriteUps.Teaching.Classes
 {
-
-    interface IHuman
-    {
-        public int Id { get; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public DateTime BirthDate { get; set; }
-        public void Walk();
-        public string Talk();
-        Action<string> Action { get; set; }
-    }
-
-    public class Person : IHuman
-    {
-        public int PersonIdentifier { get; set; }
-        public int Id => PersonIdentifier;
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public DateTime BirthDate { get; set; }
-
-        public void Walk()
-        {
-            Console.WriteLine($"{FirstName} walking");
-        }
-
-        public string Talk() => $"{FirstName} talking";
-
-        public Action<string> Action { get; set; }
-
-    }
-
-    public static class Process
-    {
-        public static void Hillbilly(Person sender)
-        {
-            // Do something
-        }
-    }
     public class PersonOperations
     {
 
         [SuppressMessage("ReSharper", "All")]
-        private static void ConvertToMethodGroup()
+        public static void ConvertToMethodGroup()
         {
             List<string> firstNames = new() { "Jed", "Granny", "Elly-May" };
  
@@ -98,6 +58,12 @@ namespace ForWriteUps.Teaching
             Console.WriteLine(person.Talk());
 
         }
+
+        public static void WalkingAndTalking()
+        {
+            Person person = Person();
+            Console.WriteLine(person.Talk($"{person.FirstName} is walking, talking and chewing gum"));
+        }
         public static void Action()
         {
             Person person = Person();
@@ -105,25 +71,5 @@ namespace ForWriteUps.Teaching
             person.Action = Console.WriteLine;
             person.Action($"{person.FirstName}, time of day is {DateTime.Now:t}");
         }
-    }
-
-    class Employee : IHuman
-    {
-        public int EmployeeIdentifier { get; set; }
-
-        public int Id => EmployeeIdentifier;
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public DateTime BirthDate { get; set; }
-
-        public void Walk()
-        {
-            Console.WriteLine("Manager walking");
-        }
-
-        public string Talk() => "Manager talking";
-
-        public Action<string> Action { get; set; }
-
     }
 }

@@ -12,6 +12,7 @@ namespace ForWriteUps.Classes
             /*
              * Take todayValue - birthValue and drop last four digits
              */
+            var dump = todayValue - birthValue;
             return (todayValue - birthValue) / 10000;
         }
     }

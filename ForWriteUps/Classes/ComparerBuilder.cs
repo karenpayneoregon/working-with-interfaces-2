@@ -5,6 +5,10 @@ using ForWriteUps.Interfaces;
 
 namespace ForWriteUps.Classes
 {
+    /// <summary>
+    /// Custom generic comparer
+    /// </summary>
+    /// <typeparam name="T">model</typeparam>
     public class ComparerBuilder<T> : IComparerBuilder<T>, IThenKeyComparerBuilder<T>
         {
             private readonly IReadOnlyList<IComparer<T>> comparers;
@@ -40,9 +44,9 @@ namespace ForWriteUps.Classes
                 return Comparer<T>.Create((a, b) =>
                 {
                     //no Linq. no foreach. We want this to be as quick as possible.
-                    for (var i = 0; i < comparers.Count; i++)
+                    for (var index = 0; index < comparers.Count; index++)
                     {
-                        var comparer = comparers[i];
+                        var comparer = comparers[index];
                         var comparison = comparer.Compare(a, b);
                         if (comparison != 0)
                         {
