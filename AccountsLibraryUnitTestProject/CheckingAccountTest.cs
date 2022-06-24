@@ -136,7 +136,7 @@ namespace AccountsLibraryUnitTestProject
         }
 
         [TestMethod]
-        [TestTraits(Trait.PlaceHolder)]
+        [TestTraits(Trait.Experiments)]
         public void ViewData()
         {
             AO.ViewAccounts();

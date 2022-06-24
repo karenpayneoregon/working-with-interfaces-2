@@ -43,8 +43,12 @@ namespace AccountsLibrary.Classes
         /// <returns></returns>
         [DebuggerStepThrough]
         public static List<CheckingAccount> ReadAccountsFromFile()
-            => JsonSerializer.Deserialize<List<CheckingAccount>>(
+        {
+            var data = JsonSerializer.Deserialize<List<CheckingAccount>>(
                 File.ReadAllText(FileName));
+
+            return data;
+        }
 
 
         /// <summary>
@@ -82,7 +86,7 @@ namespace AccountsLibrary.Classes
                 if (list.Remove(current))
                 {
                     list.Add(account);
-                    foreach (var account1 in list.Where(x => x.AccountId == account.AccountId))
+                    foreach (var account1 in list.Where(checkAccount => checkAccount.AccountId == account.AccountId))
                     {
                         Console.WriteLine($"{account1.AccountId,-3}{account1.InsufficientFunds} {account1.LastName}");
                         foreach (var trans in account1.Transactions)

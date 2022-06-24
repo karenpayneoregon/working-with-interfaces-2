@@ -10,8 +10,7 @@ using AO = AccountsLibrary.Classes.AccountOperations;
 
 namespace AccountsLibrary.Models
 {
-    public class CheckingAccount : 
-        IBaseAccount, 
+    public class CheckingAccount : IBaseAccount, 
         IComparable<CheckingAccount>, 
         INotifyPropertyChanged
     {

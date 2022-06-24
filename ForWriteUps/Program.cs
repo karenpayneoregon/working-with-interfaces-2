@@ -24,6 +24,8 @@ namespace ForWriteUps
             //WorkOperations.CloneWithDeepCloner();
             //AgeOfPerson();
             //WorkOperations.TipTheHat();
+
+            //TestOperations.Example1();
             Console.ReadLine();
         }
 

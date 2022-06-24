@@ -23,8 +23,8 @@ namespace ForWriteUps.Teaching.Classes
                 new() {FirstName = "Granny", LastName = "Clampett"},
             };
 
-            hillbillies.ForEach(Process.Hillbilly);
             hillbillies.ForEach(person => Process.Hillbilly(person));
+            hillbillies.ForEach(Process.Hillbilly);
 
         }
 
@@ -40,7 +40,7 @@ namespace ForWriteUps.Teaching.Classes
         {
             Person person = Person();
 
-            Console.WriteLine($"{person.PersonIdentifier,-4}{person.FirstName} {person.LastName}");
+            Console.WriteLine($"{person.PersonIdentifier,-4}{person.Id,-4}{person.FirstName} {person.LastName}");
         }
 
         public static void CreateAndWalk()

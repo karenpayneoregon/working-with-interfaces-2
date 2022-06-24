@@ -12,7 +12,8 @@ namespace AccountsLibraryUnitTestProject.Base
         /// </summary>
         PlaceHolder,
         Banking,
-        Utility
+        Utility,
+        Experiments
     }
     /// <summary>
     /// Declarative class for using Trait enum about for traits on test method.
