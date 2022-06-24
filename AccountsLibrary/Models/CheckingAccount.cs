@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text.Json;
-using AccountsLibrary.Classes;
 using AccountsLibrary.Classes.Events;
 using AccountsLibrary.Interfaces;
-using AccountsLibrary.LanguageExtensions;
+
 using AO = AccountsLibrary.Classes.AccountOperations;
 
 namespace AccountsLibrary.Models
 {
-    public class CheckingAccount : IBaseAccount, INotifyPropertyChanged
+    public class CheckingAccount : 
+        IBaseAccount, 
+        IComparable<CheckingAccount>, 
+        INotifyPropertyChanged
     {
         #region fields
 
@@ -26,10 +27,8 @@ namespace AccountsLibrary.Models
         #endregion
 
         #region events
-
         public event BalanceWarningDelegate BalanceWarning;
         public event DenyDelegate AccountDenial;
-
         #endregion
 
         /// <summary>
@@ -40,9 +39,13 @@ namespace AccountsLibrary.Models
         /// Account number alpha numeric
         /// </summary>
         public string Number { get; set; }
-
+        /// <summary>
+        /// For login
+        /// </summary>
         public string UserName { get; set; }
-
+        /// <summary>
+        /// For login
+        /// </summary>
         public string PIN
         {
             get => _pin;
@@ -114,7 +117,7 @@ namespace AccountsLibrary.Models
         public decimal Deposit(Transaction transaction)
         {
             /*
-             * Initial transaction
+             * Initial transaction - when using a database, the database handles keys
              */
             if (Transactions.Count == 0)
             {
@@ -131,13 +134,20 @@ namespace AccountsLibrary.Models
 
             if (Balance < _warningLevel && BalanceWarning is not null)
             {
-                BalanceWarning?.Invoke(this, new(Number, _warningLevel, Balance));
+
+                BalanceWarning?.Invoke(this, 
+                    new(Number, _warningLevel, Balance));
+
             }
 
             if (Balance - transaction.Amount < 0M)
             {
+                
                 _insufficientFunds = true;
-                AccountDenial?.Invoke(this, new(DenialReasons.InsufficientFunds, Balance));
+
+                AccountDenial?.Invoke(this, 
+                    new(
+                        DenialReasons.InsufficientFunds, Balance));
             }
             else
             {
@@ -146,7 +156,9 @@ namespace AccountsLibrary.Models
 
             IList<CheckingAccount> list = new List<CheckingAccount>(AO.ReadAccountsFromFile());
 
-            var current = list.FirstOrDefault(x => x.AccountId == transaction.AccountId);
+            var current = list.FirstOrDefault(checkingAccount => 
+                checkingAccount.AccountId == transaction.AccountId);
+
             current.Transactions.Add(transaction);
             AO.Update(current);
 
@@ -181,19 +193,23 @@ namespace AccountsLibrary.Models
             return Balance;
 
         }
-
-
+        
         public bool InsufficientFunds => _insufficientFunds;
 
         public override string ToString() => $"{AccountId,-4}{Balance:C}";
 
+        /// <summary>
+        /// For IComparable&lt;CheckingAccount&gt;
+        /// </summary>
+        public int CompareTo(CheckingAccount account) => Balance.CompareTo(account.Balance);
 
-
+        #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        #endregion
 
     }
 }

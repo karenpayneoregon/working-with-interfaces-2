@@ -118,7 +118,23 @@ namespace AccountsLibraryUnitTestProject
 
         }
 
-        
+        /// <summary>
+        /// IComparable - TODO finish up for asserts
+        /// </summary>
+        [TestMethod]
+        [TestTraits(Trait.Banking)]
+        public void SortOnBalanceAscending()
+        {
+            var accounts = AO.ReadAccountsFromFile()
+                .OrderBy(current => current.Balance);
+
+            foreach (var account in accounts)
+            {
+                Console.WriteLine(account.Balance);
+            }
+
+        }
+
         [TestMethod]
         [TestTraits(Trait.PlaceHolder)]
         public void ViewData()
