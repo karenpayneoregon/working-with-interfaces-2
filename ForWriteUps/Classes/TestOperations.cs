@@ -16,8 +16,13 @@ namespace ForWriteUps.Classes
             Console.WriteLine($"{operations3.MinValue}, {operations3.MaxValue}");
             Console.WriteLine($"{string.Join(",", operations3.Range())}");
 
+            Console.WriteLine("SQL-Server");
             SqlServerOperations customerOperations = new(2);
             Console.WriteLine(customerOperations.Find().LastName);
+
+            Console.WriteLine("Oracle");
+            OracleOperations customerOperations1 = new(2m);
+            Console.WriteLine(customerOperations1.Find().LastName);
         }
     }
 }

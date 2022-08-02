@@ -134,7 +134,7 @@ namespace ForWriteUps.Classes
     /// See also <see cref="OracleOperations"/>
     /// 
     /// </summary>
-    public class SqlServerOperations : MustInitialize2<int>
+    public class SqlServerOperations : Initializer<int>
     {
         public SqlServerOperations(int identifier, [CallerMemberName] string caller = null) : base(identifier)
         {
@@ -154,14 +154,14 @@ namespace ForWriteUps.Classes
     /// </summary>
     public class OracleOperations : MustInitialize2<decimal>
     {
-        public OracleOperations(int identifier) : base(identifier)
+        public OracleOperations(decimal identifier) : base(identifier)
         {
             // TODO
         }
 
         public IHuman Find()
         {
-            throw new NotImplementedException();
+            return Mocking.List().FirstOrDefault(human => human.Id == Identifier);
         }
     }
 }

@@ -13,21 +13,13 @@ namespace ForWriteUps.Teaching.Models
 
         public void Walk()
         {
-            Console.WriteLine($"{FirstName} walking");
+            Console.WriteLine($"{FirstName} is walking");
         }
 
-        public string Talk() => $"{FirstName} talking";
+        public string Talk() => $"{FirstName} is talking";
         public string Talk(string says) => $"{says}";
         
         public Action<string> Action { get; set; }
 
-    }
-
-    public static class Process
-    {
-        public static void Hillbilly(Person sender)
-        {
-            Console.WriteLine($"\t{nameof(Hillbilly)}, {sender.FirstName} {sender.LastName}");
-        }
     }
 }

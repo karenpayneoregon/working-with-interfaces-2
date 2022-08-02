@@ -15,4 +15,17 @@ namespace ForWriteUps.Models.Base
         /// </summary>
         public T Identifier { get; set; }
     }
+
+    public abstract class Initializer<T>
+    {
+        protected Initializer(T identifier)
+        {
+            Identifier = identifier;
+        }
+
+        /// <summary>
+        /// Primary key
+        /// </summary>
+        public T Identifier { get; set; }
+    }
 }
