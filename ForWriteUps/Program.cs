@@ -23,7 +23,7 @@ namespace ForWriteUps
 
             //WorkOperations.CloneWithDeepCloner();
             //AgeOfPerson();
-            //WorkOperations.TipTheHat();
+            WorkOperations.TipTheHat();
 
             //TestOperations.Example1();
             Console.ReadLine();
